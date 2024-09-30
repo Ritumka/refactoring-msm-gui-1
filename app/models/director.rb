@@ -2,7 +2,7 @@
 #
 # Table name: directors
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  bio        :text
 #  dob        :date
 #  image      :string
@@ -11,4 +11,10 @@
 #  updated_at :datetime         not null
 #
 class Director < ApplicationRecord
+  def filmography
+    the_id = self.id
+    matching_movies = Movie.where({ :director_id => self.id })
+    films = matching_movies.order({ :year => :asc })
+    return films
+  end
 end
